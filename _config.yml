@@ -9,9 +9,11 @@ collections:
     title: Uploads
     output: true
 email: asmith.esq@gmail.com
-description: A website for the best art teacher in the world.
-baseurl: 
-url: 
+description: A website for the greatest and best art teacher in the world.
+baseurl: ''
+url: ''
+
+# Build settings
 markdown: kramdown
 theme: minima
 plugins:
