@@ -10,8 +10,8 @@ collections:
     output: true
 email: asmith.esq@gmail.com
 description: A website for the best art teacher in the world.
-baseurl: ''
-url: ''
+baseurl: 
+url: 
 markdown: kramdown
 theme: minima
 plugins:
