@@ -1,0 +1,18 @@
+---
+title: Katy Presswood
+timezone: UTC
+collections:
+  posts:
+    title: Posts
+    output: true
+  uploads:
+    title: Uploads
+    output: true
+email: asmith.esq@gmail.com
+description: A website for the greatest and best art teacher in the world. Part II!
+baseurl: 
+url: 
+markdown: kramdown
+theme: minima
+plugins:
+- jekyll-feed
