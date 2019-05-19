@@ -1,0 +1,89 @@
+// ============================================================================
+// Convert Unit
+// ============================================================================
+
+// Convert a unit to and from px, em, rem, and %.
+// u(12px, em)
+
+@function u($val, $to-unit, $base: $font-size-root) {
+  $base: strip-unit($base);
+
+  // px => whatever
+  @if unit($val) == "px" {
+    $abs-val: strip-unit($val);
+    $rel-val: strip-unit($val) / $base;
+
+    @if $to-unit == "px" {
+      @return $abs-val * 1px;
+    }
+    @elseif $to-unit == "em" {
+      @return $rel-val * 1em;
+    }
+    @elseif $to-unit == "rem" {
+      @return $rel-val * 1rem;
+    }
+    @elseif $to-unit == "%" or $to-unit == "percent" {
+      @return $abs-val / 16 * 100%;
+    }
+    @else {
+      @warn "$to-unit must be px, em, rem, or %";
+    }
+  }
+
+  // em, rem => whatever
+  @elseif unit($val) == "em" or unit($val) == "rem" {
+    $abs-val: ceil(strip-unit($val) * $base);
+    $rel-val: strip-unit($val);
+
+    @if $to-unit == "px" {
+      @return $abs-val * 1px;
+    }
+    @elseif $to-unit == "em" {
+      @return $rel-val * 1em;
+    }
+    @elseif $to-unit == "rem" {
+      @return $rel-val * 1rem;
+    }
+    @elseif $to-unit == "%" or $to-unit == "percent" {
+      @return $rel-val * 100%;
+    }
+    @else {
+      @warn "$to-unit must be px, em, rem, or %";
+    }
+  }
+
+  // % => whatever
+  @elseif unit($val) == "%" {
+    // 130%
+    $abs-val: ceil(strip-unit($val) * $base / 100);
+    $rel-val: strip-unit($val) / 100;
+
+    @if $to-unit == "px" {
+      @return $abs-val * 1px;
+    }
+    @if $to-unit == "em" {
+      @return $rel-val * 1em;
+    }
+    @elseif $to-unit == "rem" {
+      @return $rel-val * 1rem;
+    }
+    @elseif $to-unit == "%" or $to-unit == "percent" {
+      @return $val * 100%;
+    }
+    @else {
+      @warn "$to-unit must be px, em, rem, or %";
+    }
+  }
+
+  // If a zero is passed in, return it as-is
+  @elseif $val == 0 {
+    @return $val;
+  }
+
+  // Tell everyone that you're confused if you are
+  @else {
+    @warn "$val doesn't appear to be in px, em, rem, %, or a 0.";
+  }
+
+  @return null;
+}

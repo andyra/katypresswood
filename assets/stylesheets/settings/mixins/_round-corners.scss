@@ -1,0 +1,20 @@
+// ============================================================================
+// Round Corners
+// ============================================================================
+
+// Shortcut to round two corners of an element.
+
+@mixin round-corners($side, $radius: $border-radius-base, $flatten-opposite: true) {
+  @if $flatten-opposite {
+    @if $side == "top"    { border-radius: $radius $radius 0 0; }
+    @if $side == "right"  { border-radius: 0 $radius $radius 0; }
+    @if $side == "bottom" { border-radius: 0 0 $radius $radius; }
+    @if $side == "left"   { border-radius: $radius 0 0 $radius; }
+  }
+  @else {
+    @if $side == "top"    { border-top-left-radius: $radius;    border-top-right-radius: $radius; }
+    @if $side == "right"  { border-top-right-radius: $radius;   border-bottom-right-radius: $radius; }
+    @if $side == "bottom" { border-bottom-left-radius: $radius; border-bottom-right-radius: $radius; }
+    @if $side == "left"   { border-top-left-radius: $radius;    border-bottom-left-radius: $radius; }
+  }
+}

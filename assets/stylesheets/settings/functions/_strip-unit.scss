@@ -1,0 +1,9 @@
+// ============================================================================
+// Strip Unit
+// ============================================================================
+
+// Accepts a string of numbers and letters and returns only the integers
+
+@function strip-unit($num) {
+  @return $num / ($num * 0 + 1);
+}

@@ -1,0 +1,426 @@
+// ============================================================================
+// Reset
+// ============================================================================
+
+// scss-lint:disable QualifyingElement, DuplicateProperty
+//
+// Global resets to common HTML elements and more for more consistent styling.
+// Adds additional rules on top of Normalize.css, including several overrides.
+
+// Responsive viewports
+// ----------------------------------------------------------------------------
+
+// @viewport is needed because IE 10+ doesn't honor <meta name="viewport"> in
+// some cases. See http://timkadlec.com/2012/10/ie10-snap-mode-and-responsive-design/.
+// Eventually @viewport will replace <meta name="viewport">.
+//
+// However, `device-width` is broken on IE 10 on Windows (Phone) 8,
+// (see http://timkadlec.com/2013/01/windows-phone-8-and-device-width/ and https://github.com/twbs/bootstrap/issues/10497)
+// and the fix for that involves a snippet of JavaScript to sniff the user agent
+// and apply some conditional CSS.
+//
+// See http://getbootstrap.com/getting-started/#support-ie10-width for the relevant hack.
+//
+// Wrap `@viewport` with `@at-root` for when folks do a nested import (e.g.,
+// `.class-name { @import "bootstrap"; }`).
+
+@at-root {
+  @-ms-viewport {
+    width: device-width;
+  }
+}
+
+// Reset Base
+// ----------------------------------------------------------------------------
+
+// 1. As a side-effect of setting the @viewport above,
+//    IE11 & Edge make the scrollbar overlap the content and automatically hide
+//    itself when not in use. Unfortunately, the auto-showing of the scrollbar
+//    is sometimes too sensitive, thus making it hard to click on stuff near the
+//    right edge of the page. So we add this style to force IE11 & Edge to use a
+//    "normal", non-overlapping, non-auto-hiding scrollbar.
+//    https://github.com/twbs/bootstrap/issues/18543
+// 2. Prevent iOS and IE text size adjust after device orientation change,
+//    without disabling user zoom.
+// 3. Changes the default tap highlight to be completely transparent in iOS.
+// 4. Change from `box-sizing: content-box` to `border-box` so that when you add
+//    `padding` or `border`s to an element, the overall declared `width` doesn't
+//    change. For example, `width: 100px;` will always be `100px` despite the
+//    `border: 10px solid red;` and `padding: 20px;`.
+//
+//    Heads up! This reset may cause conflicts with some third-party widgets.
+//    For recommendations on resolving such conflicts, see
+//    http://getbootstrap.com/getting-started/#third-box-sizing.
+//    https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/
+
+html {
+  -ms-overflow-style: scrollbar; // 1
+  -ms-text-size-adjust: 100%; // 2
+  -webkit-tap-highlight-color: rgba(0,0,0,0); // 3
+  -webkit-text-size-adjust: 100%; // 2
+  box-sizing: border-box; // 4
+}
+
+body {
+  margin: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit; // 4
+}
+
+// Suppress the focus outline on elements that cannot be accessed via keyboard.
+// This prevents an unwanted focus outline from appearing around elements that
+// might still respond to pointer events.
+//
+// Credit: https://github.com/suitcss/base
+[tabindex="-1"]:focus {
+  outline: none !important;
+}
+
+// HTML5 display definitions
+// ----------------------------------------------------------------------------
+
+// Correct `block` display not defined for any HTML5 element in IE 8/9.
+// Correct `block` display not defined for `details` or `summary` in IE 10/11
+// and Firefox.
+// Correct `block` display not defined for `main` in IE 11.
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+section,
+summary {
+  display: block;
+}
+
+// 1. Correct `inline-block` display not defined in IE 8/9.
+// 2. Normalize vertical alignment of `progress` in Chrome, Firefox, and Opera.
+audio,
+canvas,
+progress,
+video {
+  display: inline-block; // 1
+  vertical-align: baseline; // 2
+}
+
+// Prevent modern browsers from displaying `audio` without controls.
+// Remove excess height in iOS 5 devices.
+
+audio:not([controls]) {
+  display: none;
+  height: 0;
+}
+
+// Reset Typography
+// ----------------------------------------------------------------------------
+
+p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+// Address style set to `bolder` in Firefox 4+, Safari, and Chrome.
+b,
+strong {
+  font-weight: bold;
+}
+
+small {
+  font-size: 80%;
+}
+
+// Prevent `sub` and `sup` affecting `line-height` in all browsers.
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sup { top: -0.5em; }
+sub { bottom: -0.25em; }
+
+// Remove the gray background color from active links in IE 10.
+a {
+  background-color: transparent;
+}
+
+abbr[title] {
+  border-bottom: 1px dotted currentColor;
+  cursor: help;
+}
+
+address {
+  font-style: normal;
+  line-height: inherit;
+  margin-bottom: 1rem;
+}
+
+ol,
+ul,
+dl {
+  margin-bottom: 1rem;
+  margin-top: 0;
+
+  ol,
+  ul,
+  dl {
+    margin-bottom: 0;
+  }
+}
+
+dt {
+  font-weight: bold;
+}
+
+dd {
+  margin-bottom: 0.5rem;
+  margin-left: 0; // Undo browser default
+}
+
+blockquote {
+  margin: 0 0 1rem;
+}
+
+// Code
+// ----------------------------------------------------------------------------
+
+// Normalize v4 removed this property, causing `<pre>` content to break out of
+// wrapping code snippets
+pre {
+  margin-bottom: 1rem;
+  margin-top: 0;
+  overflow: auto;
+}
+
+// Address odd `em`-unit font size rendering in all browsers.
+code,
+kbd,
+pre,
+samp {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+
+// Images
+// ----------------------------------------------------------------------------
+
+figure {
+  margin: 0 0 1rem;
+}
+
+// 1. Remove border when inside `a` element in IE 8/9/10.
+// 2. By default, `<img>`s are `inline-block`. This assumes that, and vertically
+//    centers them. This won't apply should you reset them to `block` level.
+img {
+  border: 0; // 1
+  vertical-align: middle; // 2
+}
+
+// Correct overflow not hidden in IE 9/10/11.
+svg:not(:root) {
+  overflow: hidden;
+}
+
+// Buttons, etc.
+// ----------------------------------------------------------------------------
+
+// iOS "clickable elements" fix for role="button"
+//
+// Fixes "clickability" issue (and more generally, the firing of events such as
+// focus as well) for traditionally non-focusable elements with role="button"
+// https://developer.mozilla.org/en-US/docs/Web/Events/click#Safari_Mobile
+
+[role="button"] {
+  cursor: pointer;
+}
+
+// Avoid 300ms click delay on touch devices that support the `touch-action` CSS
+// property. In particular, unlike most other browsers, IE11+Edge on Windows 10
+// on touch devices and IE Mobile 10-11. DON'T remove the click delay when
+// `<meta name="viewport" content="width=device-width">` is present. However,
+// they DO support removing the click delay via `touch-action: manipulation`.
+// * http://v4-alpha.getbootstrap.com/content/reboot/#click-delay-optimization-for-touch
+// * http://caniuse.com/#feat=css-touch-action
+// * http://patrickhlauke.github.io/touch/tests/results/#suppressing-300ms-delay
+
+a,
+area,
+button,
+[role="button"],
+input,
+label,
+select,
+summary,
+textarea {
+  touch-action: manipulation;
+}
+
+// Tables
+// ----------------------------------------------------------------------------
+
+table {
+  background-color: transparent;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+caption {
+  caption-side: bottom;
+  text-align: left;
+}
+
+th {
+  // Centered by default, but left-align-ed to match the `td`s below.
+  text-align: left;
+}
+
+// Forms
+// ----------------------------------------------------------------------------
+
+label {
+  display: block;
+}
+
+// Work around a Firefox/IE bug where the transparent `button` background
+// results in a loss of the default `button` focus styles.
+// Credit: https://github.com/suitcss/base/
+
+// Address inconsistent `text-transform` inheritance for `button` and `select`.
+// All other form control elements do not inherit `text-transform` values.
+// Correct `button` style inheritance in Firefox, IE 8/9/10/11, and Opera.
+// Correct `select` style inheritance in Firefox.
+//
+
+button,
+select {
+  text-transform: none;
+}
+
+button:focus {
+  outline: 1px dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+}
+
+// 1. Remove all `margin`s so our classes don't have to do it themselves.
+// 2. Normalize includes `font: inherit;`, so `font-family`. `font-size`, etc are
+//    properly inherited. However, `line-height` isn't addressed there. Using this
+//    ensures we don't need to unnecessarily redeclare the global font stack.
+// 3. iOS adds rounded borders by default
+button,
+input,
+optgroup,
+select,
+textarea {
+  border-radius: 0; // 3
+  color: inherit;
+  line-height: inherit; // 2
+  margin: 0; // 1
+}
+
+// Apply a disabled cursor for radios and checkboxes.
+// Note: Neither radios nor checkboxes can be readonly.
+input[type="radio"],
+input[type="checkbox"] {
+  &:disabled {
+    cursor: disabled;
+  }
+}
+
+// Remove the default appearance of temporal inputs to avoid a Mobile Safari
+// bug where setting a custom line-height prevents text from being vertically
+// centered within the input.
+// Bug report: https://github.com/twbs/bootstrap/issues/11266
+input[type="date"],
+input[type="time"],
+input[type="datetime-local"],
+input[type="month"] {
+  -webkit-appearance: listbox;
+}
+
+// 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio`
+//    and `video` controls.
+// 2. Correct inability to style clickable `input` types in iOS.
+// 3. Improve usability and consistency of cursor style between image-type
+//    `input` and others.
+button,
+html input[type="button"], // 1
+input[type="reset"],
+input[type="submit"] {
+  -webkit-appearance: button; // 2
+  cursor: pointer; // 3
+}
+
+// Fix the cursor style for Chrome's increment/decrement buttons. For certain
+// `font-size` values of the `input`, it causes the cursor style of the
+// decrement button to change from `default` to `text`.
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+// 1. Remove default vertical scrollbar in IE 8/9/10/11.
+// 2. Textareas should really only resize vertically so they don't break their
+//    (horizontal) containers.
+textarea {
+  overflow: auto; // 1
+  resize: vertical; // 2
+}
+
+// Unstyle the caret on `<select>`s in IE10+.
+select::-ms-expand {
+  background-color: transparent;
+  border: 0;
+}
+
+// Chrome and Firefox set a `min-width: min-content;` on fieldsets,
+// so we reset that to ensure it behaves more like a standard block element.
+// See https://github.com/twbs/bootstrap/issues/12359.
+fieldset {
+  border: 0;
+  margin: 0;
+  min-width: 0;
+  padding: 0;
+}
+
+// Reset the entire legend element to match the `fieldset`
+legend {
+  border: none;
+  display: block;
+  line-height: inherit;
+  margin-bottom: 0.5rem;
+  padding: 0;
+  width: 100%;
+}
+
+// 1. Address `appearance` set to `searchfield` in Safari and Chrome.
+// 2. Address `box-sizing` set to `border-box` in Safari and Chrome.
+input[type="search"] {
+  -webkit-appearance: textfield; // 1
+  box-sizing: content-box; //2
+}
+
+// Remove inner padding and search cancel button in Safari and Chrome on OS X.
+// Safari (but not Chrome) clips the cancel button when the search input has
+// padding (and `textfield` appearance).
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+// Always hide an element with the `hidden` HTML attribute (from PureCSS).
+[hidden] {
+  display: none !important;
+}

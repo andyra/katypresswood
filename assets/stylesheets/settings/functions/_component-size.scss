@@ -1,0 +1,36 @@
+// ============================================================================
+// Component Size
+// ============================================================================
+
+// Return a vertical padding measurement to make a component end up at a certain
+// height given its typography properties. This is useful for making different
+// components, and their variations, mach each other's heights.
+
+@function component-size(
+  $component-size:  $component-base,
+  $font-size:       map-get($component-size, "font-size"),
+  $line-height:     $line-height-base,
+  $border-width:    $border-width-sm,
+  $borders:         0,
+  $padding-x:       false
+) {
+  $target-height: map-get($component-size, "height");
+
+  // If an element has a border, subtract that from the padding to compensate
+  @if $borders != 0 {
+    $target-height: $target-height - ($border-width * $borders);
+  }
+
+  // Convert everything to pixels so we can round accurately
+  $remainder: ceil(u($target-height, px) - (u($font-size, px) * $line-height));
+
+  // Then convert back to rems since that's what we want to end up with
+  $padding-y: u($remainder / 2, rem);
+  $padding: $padding-y;
+
+  @if $padding-x != false {
+    $padding: $padding-y $padding-x;
+  }
+
+  @return $padding;
+}

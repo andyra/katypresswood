@@ -1,0 +1,59 @@
+// ============================================================================
+// Settings
+// ============================================================================
+
+// Type
+// ----------------------------------------------------------------------------
+
+$font-base: "system", "-apple-system", "BlinkMacSystemFont", "Helvetica Neue";
+
+// Sizes
+$font-size-root-sm: 14px;
+$font-size-root:    18px;
+
+// Font Sizes
+$font-size-xs:      u(12px, rem);
+$font-size-sm:      u(15px, rem);
+$font-size-base:    u($font-size-root, rem);
+$font-size-lg:      u(21px, rem);
+$font-size-xl:      u(32px, rem);
+
+// Line heights
+$line-height-base:      1.35;
+
+// Colors
+// ----------------------------------------------------------------------------
+
+// Grays
+$text-color-base:   hsl(0, 0%, 15%);
+$text-color-light:  hsl(0, 0%, 45%);
+$accent-color:      tomato;
+
+// Breakpoints
+// ----------------------------------------------------------------------------
+
+// Sizes
+$screen-xxs:       320px;
+$screen-xs:        480px;
+$screen-sm:        640px;
+$screen-base:      800px;
+$screen-md:        960px;
+$screen-lg:        1200px;
+$screen-xl:        1600px;
+
+// Presets
+$screen-xxs-down:  "screen and (max-width: #{$screen-xxs})";
+$screen-xs-down:   "screen and (max-width: #{$screen-xs})";
+$screen-sm-down:   "screen and (max-width: #{$screen-sm})";
+$screen-base-down: "screen and (max-width: #{$screen-base})";
+$screen-md-down:   "screen and (max-width: #{$screen-md})";
+$screen-lg-down:   "screen and (max-width: #{$screen-lg})";
+$screen-xl-down:   "screen and (max-width: #{$screen-xl})";
+
+$screen-xxs-up:    "screen and (min-width: #{$screen-xxs  + 1px})";
+$screen-xs-up:     "screen and (min-width: #{$screen-xs   + 1px})";
+$screen-sm-up:     "screen and (min-width: #{$screen-sm   + 1px})";
+$screen-base-up:   "screen and (min-width: #{$screen-base + 1px})";
+$screen-md-up:     "screen and (min-width: #{$screen-md   + 1px})";
+$screen-lg-up:     "screen and (min-width: #{$screen-lg   + 1px})";
+$screen-xl-up:     "screen and (min-width: #{$screen-xl   + 1px})";

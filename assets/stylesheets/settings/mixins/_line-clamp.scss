@@ -1,0 +1,27 @@
+// ============================================================================
+// Line Clamp
+// ============================================================================
+
+// Limit a block of text to a specified number of lines. Use this instead of the
+// keep-on-single-line mixin/placeholder.
+//
+// Note: Multi-line line-clamping works only on webkit with graceful fallback
+// for other browsers (no ellipses)
+
+@mixin line-clamp($lines: 1, $font-size: $font-size-base, $line-height: $line-height-base, $webkit-box: true) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  @if $lines == 1 {
+    white-space: nowrap;
+  } @else {
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $lines;
+    font-size: $font-size;
+    height: $font-size * $line-height * $lines;
+    line-height: $line-height;
+
+    @if $webkit-box {
+      display: -webkit-box;
+    }
+  }
+}
